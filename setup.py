@@ -15,14 +15,18 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 setup(
     name="CodeSummary",
     version="1.0.0",
-    description="A deployable REST API",
+    description="A deployable REST API for NLP Code Summarization",
     url="https://github.com/Nathan-Nesbitt/CodeSummary",
     author=("Nathan Nesbitt"),
     packages=find_packages(),
     install_requires=[
         "flask",
-        "werkzeug==0.16.1",
-        "flask-restful",
+        "werkzeug",
+        "torch==1.6.0",
+        "rouge",
+        "torchtext==0.4",
+        "matplotlib",
+        "nltk"
     ],
     zip_safe=False,
     long_description=long_description,

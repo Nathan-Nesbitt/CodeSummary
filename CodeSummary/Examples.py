@@ -1,5 +1,6 @@
 from .server.REST import REST
 from .models.Model import Model
+from .models.lamner.Lamner import Lamner
 
 
 class BasicTutorial:
@@ -24,3 +25,21 @@ class BasicTutorial:
         }
 
         rest_server = REST(models, debug=True)
+
+class LamnerExample(Lamner):
+    """
+    Example class for the LAMNER NLP model.
+    """
+    def __init__(self):
+        """
+        Creates a basic object
+        """
+        super().__init__()
+
+        models = {
+            "lamner": Model(
+                "LAMNER", "LAMNER - Code Summarization", None, self.translate
+            )
+        }
+
+        self.rest_server = REST(models, debug=True)
