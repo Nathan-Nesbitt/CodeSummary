@@ -1,3 +1,3 @@
-from CodeSummary.Examples import LamnerExample
+from CodeSummary.Examples import LamnerExample, Example
 
-main = LamnerExample()
+main = Example()

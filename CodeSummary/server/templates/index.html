@@ -19,17 +19,12 @@
 
     </div>
     <script>
-        var my_array = {{ models|safe }}
-
-        for (var i = 0; i < my_array.length; i++) {
-            var option = document.createElement("option");
-            option.value = my_array[i];
-            option.text = my_array[i];
-            document.getElementById("selected_model").appendChild(option);
-        }
+        var my_array = [];
+        var models = {};
+    
+        var select = document.getElementById("selected_model");
         
-        document.getElementById("selected_model").addEventListener("change", (e) => {
-            const {el} = e;
+        function get_individual_model(e) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -38,10 +33,49 @@
                     document.getElementById("description").innerHTML = response.model_description
                 }
             };
-            xhttp.open("GET", "models/" + e.value, true);
+            xhttp.open("GET", "http://localhost:3000/models/" + e.value, true);
             xhttp.send();
+        }
+
+        function load_title() {
+            console.log(models)
+            var e = select
+            console.log("VALUE", e)
+            document.getElementById("title").innerHTML = models[e.value].name
+            document.getElementById("description").innerHTML = models[e.value].description
+        }
+
+        async function load_models() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    response = JSON.parse(this.responseText)
+                    for (key in response) {
+                        my_array.push(key)
+                        models[key] = JSON.parse(response[key])
+                    }
+                    for (var i = 0; i < my_array.length; i++) {
+                        var option = document.createElement("option");
+                        option.value = my_array[i];
+                        option.text = my_array[i];
+                        document.getElementById("selected_model").appendChild(option);
+                    }
+                    load_title()
+                }
+            }
+            xhttp.open("GET", "http://localhost:3000/models", true);
+            xhttp.send();
+        };
+
+        // This loads all of the model information into the page //
+        load_models()
+
+        // If someone changes the model it changes the title information //
+        document.getElementById("selected_model").addEventListener("change", () => {
+            load_title()
         })
 
+        // If someone submits, it pulls the current selected model and posts //
         document.getElementById("submit").addEventListener("click", (e) => {
             const {el} = e;
             var xhttp = new XMLHttpRequest();
@@ -50,7 +84,7 @@
                     document.getElementById("output").innerHTML = this.responseText
                 }
             };
-            xhttp.open("POST", "models/" + document.getElementById("selected_model").value, true);
+            xhttp.open("POST", "http://localhost:3000/models/" + document.getElementById("selected_model").value, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             xhttp.send("input=" + document.getElementById("input").value);
