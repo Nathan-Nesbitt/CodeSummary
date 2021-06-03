@@ -8,7 +8,9 @@ The easiest way to install the `CodeSummary` library, install it via PIP:
 pip install CodeSummary
 ```
 
-This must be run on python 3.7.
+This must be run on python 3.7. If you run into errors claiming that you are 
+missing dependencies it is likely because PyTorch 1.6 is not available for your
+system and you will have to manually install it.  
 
 ## Running your own models
 

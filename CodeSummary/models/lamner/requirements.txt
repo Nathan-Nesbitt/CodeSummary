@@ -1,0 +1,7 @@
+torch==1.6.0
+rouge
+torchtext==0.4
+matplotlib
+nltk
+javalang
+git+https://github.com/casics/spiral.git

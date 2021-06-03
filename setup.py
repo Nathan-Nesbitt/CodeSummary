@@ -20,13 +20,15 @@ setup(
     author=("Nathan Nesbitt"),
     packages=find_packages(),
     install_requires=[
-        "flask",
+        "Flask",
         "werkzeug",
         "torch==1.6.0",
         "rouge",
         "torchtext==0.4",
         "matplotlib",
-        "nltk"
+        "nltk",
+        "javalang",
+        "spiral @ git+https://github.com/casics/spiral.git"
     ],
     zip_safe=False,
     long_description=long_description,

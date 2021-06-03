@@ -6,11 +6,10 @@ class Model:
     Class for each model that is passed in.
     """
 
-    def __init__(self, name, description, model, predict):
+    def __init__(self, name, description, predict):
         super().__init__()
         self.name = name
         self.description = description
-        self.model = model
         self.predict = predict
 
     def predict(self, input):
