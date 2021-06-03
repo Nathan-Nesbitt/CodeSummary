@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CodeSummary</title>
+  </head>
+  <body>
+    <div class="container">
+        <h1 id="title"></h1>
+        <p id="description"></p>
+        <textarea id="input">
+
+        </textarea>
+        <textarea id="output">
+
+        </textarea>
+        <select id="selected_model">
+        </select>
+        <button id="submit">Convert</button>
+
+    </div>
+    <script>
+        var my_array = {{ models|safe }}
+
+        for (var i = 0; i < my_array.length; i++) {
+            var option = document.createElement("option");
+            option.value = my_array[i];
+            option.text = my_array[i];
+            document.getElementById("selected_model").appendChild(option);
+        }
+        
+        document.getElementById("selected_model").addEventListener("change", (e) => {
+            const {el} = e;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    response = JSON.parse(this.responseText)
+                    document.getElementById("title").innerHTML = response.model_name
+                    document.getElementById("description").innerHTML = response.model_description
+                }
+            };
+            xhttp.open("GET", "models/" + e.value, true);
+            xhttp.send();
+        })
+
+        document.getElementById("submit").addEventListener("click", (e) => {
+            const {el} = e;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("output").innerHTML = this.responseText
+                }
+            };
+            xhttp.open("POST", "models/" + document.getElementById("selected_model").value, true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhttp.send("input=" + document.getElementById("input").value);
+        })
+
+
+    </script>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import json
 
 
@@ -41,6 +41,15 @@ def REST(models, debug=False):
         for key, value in models.items():
             vals[key] = str(value)
         return vals
+
+    @app.route("/", methods=["GET"])
+    def main():
+        """
+            This just serves up the main page.
+        """
+        vals = [i for i in models.keys()]
+            
+        return render_template('index.html', models = json.dumps(vals))
 
     # Starts the flask server
     app.run(debug=False, host="0.0.0.0", port=3000)
