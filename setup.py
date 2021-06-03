@@ -21,6 +21,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "Flask",
+        "flask-cors",
         "werkzeug",
         "torch==1.6.0",
         "rouge",

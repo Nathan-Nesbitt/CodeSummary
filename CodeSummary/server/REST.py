@@ -1,11 +1,15 @@
 from flask import Flask, request, render_template
+from flask_cors import CORS, cross_origin
 import json
 
 
 def REST(models, debug=False):
     app = Flask(__name__, template_folder="templates")
+    cors = CORS(app)
+    app.config['CORS_HEADERS'] = 'Content-Type'
 
     @app.route("/models/<model>", methods=["GET"])
+    @cross_origin()
     def route_model_description(model):
         """
             Gets the description of a single model. This is useful if you
@@ -19,6 +23,7 @@ def REST(models, debug=False):
         return "Model does not exist.", 404
 
     @app.route("/models/<model>", methods=["POST"])
+    @cross_origin()
     def route_model_prediction(model):
         """
             This function takes in the model name and a single request parameter
@@ -32,6 +37,7 @@ def REST(models, debug=False):
         return "Model does not exist.", 404
 
     @app.route("/models", methods=["GET"])
+    @cross_origin()
     def route_models():
         """
             This returns a list of full descriptions of all of the models that
