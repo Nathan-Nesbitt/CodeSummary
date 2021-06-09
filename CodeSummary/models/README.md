@@ -5,7 +5,7 @@ You don't have to store the model in this directory to use it, you simply need
 to have an object that initializes the model, and a function that takes in a 
 string input and returns a string form of the prediction. If you want to install
 the model within the library, we do not want to store files that are larger than
-100MB on GitHub so we can simply modify the install script to download the files
+100MB on GitHub so we can simply modify the models script to download the files
 from a server.
 
 ## Adding a model
@@ -23,9 +23,14 @@ You then can modify the `models.py` file to download the required zipped model
 
 ```
 models = {
-    "<Name>": {
-        "server_location": "<Path to zipped file on remote server>",
-        "local_location": "<Local path where file should be unzipped>"
+    Model Name: {
+        "server_location": Location where the model is being hosted,
+        "local_location": Local file where you will save the model,
+        "root_folder_names": [
+            This is the main folder names within the zip file, this allows
+            us to avoid re-downloading the files if they already exist on 
+            the local system.
+        ]
     }
 }
 ```
@@ -36,7 +41,14 @@ unzips the files to the lamner directory.
 models = {
     "LAMNER": {
         "server_location": "",
-        "local_location": "CodeSummary/models/lamner"
+        "local_location": "lamner",
+        "root_folder_names": [
+            "custom_embeddings",
+            "custom_embeddings_decoder",
+            "custom_embeddings_semantic_encoder",
+            "custom_embeddings_syntax_encoder",
+            "best-seq2seq.pt"
+        ]
     }
 }
 

@@ -15,6 +15,7 @@ models = {
             "custom_embeddings_decoder",
             "custom_embeddings_semantic_encoder",
             "custom_embeddings_syntax_encoder",
+            "best-seq2seq.pt"
         ]
     }
 }
