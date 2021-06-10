@@ -8,9 +8,12 @@ The easiest way to install the `CodeSummary` library, install it via PIP:
 pip install CodeSummary
 ```
 
-This must be run on python 3.7. If you run into errors claiming that you are 
-missing dependencies it is likely because PyTorch 1.6 is not available for your
-system and you will have to manually install it.  
+This must be run on python 3.7.
+
+## Running
+
+At the moment you can run the `main.py` file which starts a basic server locally.
+If you want to run this on a server you can use gunicorn.
 
 ## Running your own models
 
@@ -27,7 +30,7 @@ you can specify multiple models and pass them into the `REST` object to be
 served.
 
 ```py
-class LamnerExample(Lamner):
+class LamnerExample:
     """
     Example class for the LAMNER NLP model.
     """
@@ -37,11 +40,51 @@ class LamnerExample(Lamner):
         """
         super().__init__()
 
+        # Downloads the lamner model
+        get_models(["LAMNER"])
+
+        lamner = Lamner()
+
         models = {
             "lamner": Model(
-                "LAMNER", "LAMNER - Code Summarization", None, self.translate
+                "LAMNER", "LAMNER - Code Summarization", None, lamner.translate
             )
         }
 
         self.rest_server = REST(models, debug=True)
+```
+
+If you want to run multiple models at the same time you can do the following:
+
+```py
+class Example:
+    """
+    Example of multiple models.
+    """
+    def __init__(self):
+        """
+        Creates a basic object
+        """
+        super().__init__()
+
+        # Downloads the lamner model
+        get_models(["LAMNER"])
+
+        # Running two instances of LAMNER for some reason
+        lamner_1 = Lamner()
+        lamner_2 = Lamner()
+
+        # Defines two models running on the server
+        models = {
+            "lamner": Model(
+                "LAMNER", "LAMNER - Model One Example", lamner_1.translate
+            ),
+
+            "lamner_2": Model(
+                "LAMNER_2", "LAMNER - This is a second instance of the model", lamner_2.translate
+            )
+        }
+        
+        self.rest_server = REST(models)
+
 ```
