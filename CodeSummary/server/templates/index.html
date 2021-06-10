@@ -1,32 +1,236 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>CodeSummary</title>
-  </head>
-  <body>
-    <div class="container">
-        <h1 id="title"></h1>
-        <p id="description"></p>
-        <textarea id="input">
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
+    <meta name="description" content="" />
+    <meta name="keywords" content="NLP, Machine Learning, CodeSummary" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            display: flex;
+            height: 100vh;
+        }
 
-        </textarea>
-        <textarea id="output">
+        main {
+            display: flex;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+        }
 
-        </textarea>
-        <select id="selected_model">
-        </select>
-        <button id="submit">Convert</button>
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+        }
 
+        .title {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .main {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .models {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .models>select,
+        button {
+            margin: 10px;
+        }
+
+        #submit>* {
+            margin: 5px;
+        }
+
+        .mdc-drawer-app-content {
+        flex: auto;
+        overflow: auto;
+        position: relative;
+        }
+
+        .main-content {
+        overflow: auto;
+        height: 100%;
+        }
+
+        .app-bar {
+        position: absolute;
+        }
+
+        .mdc-drawer {
+        top:4.5rem;
+        position: fixed !important;
+        }
+
+        .mdc-top-app-bar {
+        z-index: 7;
+        }
+
+        /* The following handles smaller devices */
+
+        @media (max-width: 600px) {
+            .main {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+            }
+
+            .desktop {
+                display: none;
+            }
+
+            .mobile {
+                display: flex;
+            }
+
+            .main>div {
+                margin-top: 20px;
+            }
+        }
+
+        @media (min-width: 601px) {
+            .desktop {
+                display: flex;
+            }
+
+            .mobile {
+                display: none;
+            }
+
+            #output_area {
+                order: 1;
+            }
+
+            .submit {
+                order: 2;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body>
+    <header class="mdc-top-app-bar app-bar" id="app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+                <span class="mdc-top-app-bar__title">CodeSummary</span>
+            </section>
+        </div>
+    </header>
+    <aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust">
+        <div class="mdc-drawer__content">
+        </div>
+    </aside>
+    <div class="main-content mdc-drawer-app-content mdc-top-app-bar--fixed-adjust">
+        <main id="main-content">
+            <div class="container">
+                <div class="title">
+                    <h1 id="title"></h1>
+                    <p id="description"></p>
+                </div>
+                <div class="main">
+                    <div id="input_area">
+                        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea ">
+                            <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                            </span>
+                            <textarea id="input" class="mdc-text-field__input" rows="13" cols="70" aria-label="Label">public static void sortArr(int[] array) {
+            for (int i = 1; i < array.length; i++) {
+                int current = array[i];
+                int j = i - 1;
+                while(j >= 0 && current < array[j]) {
+                    array[j+1] = array[j];
+                    j--;
+                }
+                array[j+1] = current;
+            }
+        }</textarea>
+                        </label>
+                        <div class="mdc-text-field-helper-line">
+                            <div class="mdc-text-field-helper-text" id="my-helper-id" aria-hidden="true">Your Code</div>
+                        </div>
+                    </div>
+                    <div class="models mobile">
+                        <button class="submit mdc-button mdc-button--raised">
+                            <span class="mdc-button__ripple"></span>
+                            <span class="mdc-button__label">Generate Comment</span>
+                        </button>
+                    </div>
+                    <div id="output_area">
+                        <label
+                            class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
+                            <span class="mdc-notched-outline">
+                                <span class="mdc-notched-outline__leading"></span>
+                                <span class="mdc-notched-outline__trailing"></span>
+                            </span>
+                            <textarea id="output" class="mdc-text-field__input" rows="13" cols="40" aria-label="Label"
+                                disabled></textarea>
+                        </label>
+                        <div class="mdc-text-field-helper-line">
+                        </div>
+                    </div>
+                </div>
+                <div class="models desktop">
+                    <button class="submit mdc-button mdc-button--raised">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label">Generate Comment</span>
+                    </button>
+                </div>
+            </div>
+        </main>
     </div>
+    <script>
+        mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+        mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
+        const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+
+        const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('app-bar'));
+        topAppBar.setScrollTarget(document.getElementById('main-content'));
+        topAppBar.listen('MDCTopAppBar:nav', () => {
+        drawer.open = !drawer.open;
+        });
+
+        window.addEventListener("load", function(event) {
+        if(window.innerWidth > 1024) {
+            drawer.open = !drawer.open;
+        }
+        });
+    </script>
     <script>
         var my_array = [];
         var models = {};
-    
-        var select = document.getElementById("selected_model");
-        
+        var current_model = ""
+
+        var select = document.getElementsByClassName("selected_model")[0];
+
         function get_individual_model(e) {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     response = JSON.parse(this.responseText)
                     document.getElementById("title").innerHTML = response.model_name
@@ -37,15 +241,15 @@
             xhttp.send();
         }
 
-        function load_title() {
-            var e = select
-            document.getElementById("title").innerHTML = models[e.value].name
-            document.getElementById("description").innerHTML = models[e.value].description
+        function load_title(element) {
+            document.getElementById("title").innerHTML = models[element.childNodes[0].innerHTML].name
+            document.getElementById("description").innerHTML = models[element.childNodes[0].innerHTML].description
+            current_model = element.childNodes[0].innerHTML
         }
 
         async function load_models() {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     response = JSON.parse(this.responseText)
                     for (key in response) {
@@ -53,12 +257,21 @@
                         models[key] = JSON.parse(response[key])
                     }
                     for (var i = 0; i < my_array.length; i++) {
-                        var option = document.createElement("option");
-                        option.value = my_array[i];
-                        option.text = my_array[i];
-                        document.getElementById("selected_model").appendChild(option);
+                        var parent = document.createElement("div");
+                        parent.className = "mdc-list"
+                        var child_link = document.createElement("a");
+                        child_link.className = "mdc-list-item mdc-list-item--activated"
+                        child_link.addEventListener("click", e => load_title(e.currentTarget)) 
+                        var span = document.createElement("span");
+                        span.className = "mdc-list-item__text"
+                        span.appendChild(document.createTextNode(my_array[i]));
+
+                        child_link.appendChild(span)
+                        parent.appendChild(child_link)
+
+                        document.getElementsByClassName("mdc-drawer__content")[0].appendChild(parent)
                     }
-                    load_title()
+                    load_title(document.getElementsByClassName("mdc-list-item")[0])
                 }
             }
             xhttp.open("GET", "http://localhost:3000/models", true);
@@ -69,26 +282,29 @@
         load_models()
 
         // If someone changes the model it changes the title information //
-        document.getElementById("selected_model").addEventListener("change", () => {
-            load_title()
+        Array.prototype.map.call(document.getElementsByClassName("selected_model"), e => {
+            e.addEventListener("change", (e) => {
+                load_title(e.currentTarget)
+            })
         })
 
         // If someone submits, it pulls the current selected model and posts //
-        document.getElementById("submit").addEventListener("click", (e) => {
-            const {el} = e;
+        Array.prototype.map.call(document.getElementsByClassName("submit"), e => e.addEventListener("click", (e) => {
+            const {
+                el
+            } = e;
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("output").innerHTML = this.responseText
                 }
             };
-            xhttp.open("POST", "http://localhost:3000/models/" + document.getElementById("selected_model").value, true);
+            xhttp.open("POST", "http://localhost:3000/models/" + current_model, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             xhttp.send("input=" + document.getElementById("input").value);
-        })
-
-
+        }))
     </script>
-  </body>
+</body>
+
 </html>
