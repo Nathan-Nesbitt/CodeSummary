@@ -237,7 +237,7 @@
                     document.getElementById("description").innerHTML = response.model_description
                 }
             };
-            xhttp.open("GET", "http://localhost:3000/models/" + e.value, true);
+            xhttp.open("GET", "/models/" + e.value, true);
             xhttp.send();
         }
 
@@ -274,7 +274,7 @@
                     load_title(document.getElementsByClassName("mdc-list-item")[0])
                 }
             }
-            xhttp.open("GET", "http://localhost:3000/models", true);
+            xhttp.open("GET", "/models", true);
             xhttp.send();
         };
 
@@ -299,7 +299,7 @@
                     document.getElementById("output").innerHTML = this.responseText
                 }
             };
-            xhttp.open("POST", "http://localhost:3000/models/" + current_model, true);
+            xhttp.open("POST", "/models/" + current_model, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
             xhttp.send("input=" + document.getElementById("input").value);
