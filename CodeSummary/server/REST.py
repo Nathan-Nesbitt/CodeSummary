@@ -31,7 +31,7 @@ def REST(models, debug=False):
         """
         if model in models:
             if request.form:
-                return models[model].predict(request.form["input"]), 200
+                return models[model].predict(request.form.get("input")), 200
             else:
                 return "No code sent to the server.", 401
         return "Model does not exist.", 404

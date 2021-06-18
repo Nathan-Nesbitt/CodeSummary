@@ -304,9 +304,9 @@
                 }
             };
             xhttp.open("POST", "/models/" + current_model, true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-            xhttp.send("input=" + document.getElementById("input").value);
+            var data = new FormData();
+            data.append('input', document.getElementById("input").value);
+            xhttp.send(data);
         }))
     </script>
 </body>
