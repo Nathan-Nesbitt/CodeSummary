@@ -40,11 +40,14 @@ It returns the following format:
 
 ```JSON
 {
-    "id": {
-        "name": "",
-        "description": ""
-    },
-    ...
+    "error": false,
+    "response": {
+        "id": {
+            "name": "",
+            "description": ""
+        },
+        ...
+    }
 }
 ```
 
@@ -53,13 +56,16 @@ following for two of the exact same models.
 
 ```JSON
 {
-    "lamner": {
-        "name": "LAMNER",
-        "description": "LAMNER - Code Summarization"
-    },
-    "lamner_2":{
-        "name": "LAMNER_2", 
-        "description": "LAMNER - Code Summarization"
+    "error": false,
+    "response": {
+        "lamner": {
+            "name": "LAMNER",
+            "description": "LAMNER - Code Summarization"
+        },
+        "lamner_2":{
+            "name": "LAMNER_2", 
+            "description": "LAMNER - Code Summarization"
+        }
     }
 }
 ```
@@ -81,6 +87,12 @@ input: "String that is passed into the model"
 
 It then returns a raw return, which contains the string response from the model.
 
+```
+{
+    "error": <true/false>,
+    "response": <response from model>
+}
+```
 
 ## Adding Your Own Models
 
