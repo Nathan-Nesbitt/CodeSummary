@@ -3,7 +3,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from io import BytesIO
 import os
-import codesummary
+import CodeSummary
 
 current_path = os.path.dirname(os.path.realpath(CodeSummary.__file__))
 
