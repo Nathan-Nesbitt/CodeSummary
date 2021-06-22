@@ -20,7 +20,10 @@ def REST(models, debug=False):
                 "model_name": models[model].name,
                 "model_description": models[model].description,
             }
-        return "Model does not exist.", 404
+        return {
+            "error": True,
+            "response": "Model does not exist."
+        }, 404
 
     @app.route("/models/<model>", methods=["POST"])
     @cross_origin()
@@ -31,10 +34,19 @@ def REST(models, debug=False):
         """
         if model in models:
             if request.form:
-                return models[model].predict(request.form.get("input")), 200
+                return {
+                    "error": False,
+                    "response": models[model].predict(request.form.get("input"))
+                }, 200
             else:
-                return "No code sent to the server.", 401
-        return "Model does not exist.", 404
+                return {
+                    "error": True,
+                    "response": "No code sent to the server."
+                }, 401
+        return {
+            "error": True,
+            "response": "Model does not exist."
+        }, 404
 
     @app.route("/models", methods=["GET"])
     @cross_origin()
@@ -46,7 +58,10 @@ def REST(models, debug=False):
         vals = {}
         for key, value in models.items():
             vals[key] = str(value)
-        return vals
+        return {
+            "error": False,
+            "response": vals
+        }, 200
 
     @app.route("/", methods=["GET"])
     def main():
