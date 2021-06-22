@@ -256,9 +256,9 @@
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     response = JSON.parse(this.responseText)
-                    for (key in response) {
+                    for (key in response["response"]) {
                         my_array.push(key)
-                        models[key] = JSON.parse(response[key])
+                        models[key] = JSON.parse(response["response"][key])
                     }
                     for (var i = 0; i < my_array.length; i++) {
                         var parent = document.createElement("div");
@@ -300,7 +300,9 @@
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("output").innerHTML = this.responseText
+                    response = JSON.parse(this.responseText)
+                    if(!response["error"])
+                        document.getElementById("output").innerHTML = response["response"]
                 }
             };
             xhttp.open("POST", "/models/" + current_model, true);
