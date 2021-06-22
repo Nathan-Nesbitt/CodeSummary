@@ -169,22 +169,3 @@ class Example:
         self.rest_server = REST(models)
 
 ```
-
-## Running on a server
-
-This is a simple instructional for running on a small instance. The better 
-approach if you require load balancing is to create a docker build and use 
-kubernetes to spin up instances. 
-
-1. Install and configure apache
-2. Clone the repository and change into the directory
-3. Create a virtual environment ``
-4. Install the dependencies for the base API `pip install .`
-5. Install gunicorn (if that's what you are using) `pip install gunicorn`
-6. 
-
-## Creating a new PIP version
-
-GitHub actions can do the pip publishing for you. You simply need to:
-
-1. 
