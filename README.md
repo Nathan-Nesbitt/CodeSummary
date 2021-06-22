@@ -20,13 +20,20 @@ do the following:
 
 ## Running Basic Example
 
-If you want to run the local server that is included in the git repository,
-you can simply run `python main.py`. This is a demo server that loads 2 
+This is a demo server that loads 2 
 versions of the LAMNER model. For more information see the license and 
 associated information in the models directory. You can view this server by
 visiting `localhost:3000`
 
-If you want to run this on a server you can use gunicorn.
+### Development
+
+If you want to run the local server that is included in the git repository,
+you can simply run `export FLASK_APP=main:server` `flask run --port 3000`. 
+
+### Production
+
+If you want to run this in production you should instead use gunicorn, which
+can be done by running `sh gunicorn.sh`.
 
 ## Using the API
 
@@ -170,3 +177,25 @@ class Example:
         self.rest_server = REST(models)
 
 ```
+
+## Docker
+Since you may want to deploy this using docker and Kubernetes to allow for better
+scaling you can use the included scripts. To do this locally you can do the 
+following:
+
+1. Install and start docker ([see here for more info](https://docs.docker.com/engine/install/))
+
+2. Build the image `docker build -t codesummary . ` (be aware this is an insanely taxing process)
+
+3. Run the container locally by running `docker run -d -p 3000:3000 codesummary` (make sure that apache/nginx is not running in the background)
+
+4. Visit [http://localhost:3000](http://localhost:3000) to view the project locally.
+
+If you want to see if it is running you can type `docker ps` or if you want
+to kill it you can run `docker stop <process ID>`. 
+
+## Deployment
+The apache/nginx configuration is up to the deployer, the core concept is that 
+you need to reverse proxy to the app listning on port 3000. 
+
+Kubernetes deployment is also up to you, as it could be a whole project in itself.

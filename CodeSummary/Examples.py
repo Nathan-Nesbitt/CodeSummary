@@ -28,12 +28,14 @@ class BasicTutorial:
             )
         }
 
-        rest_server = REST(models, debug=True)
+        self.rest_server = REST(models, debug=True)
+
 
 class LamnerExample:
     """
     Example class for the LAMNER NLP model.
     """
+
     def __init__(self):
         """
         Creates a basic object
@@ -44,25 +46,27 @@ class LamnerExample:
         get_models(["LAMNER"])
 
         lamner = Lamner()
-        
+
         models = {
             "lamner": Model(
-                "LAMNER", 
+                "LAMNER",
                 """
                 LAMNER is a deep learning model based on the transformers architecture developped at UBC.
                 It takes in a function, parses the text, and produces a description of the code segment.
                 It is intended to be used for full functions.
-                """,  
-                lamner.translate
+                """,
+                lamner.translate,
             )
         }
-        
+
         self.rest_server = REST(models)
+
 
 class Example:
     """
     Example of multiple models.
     """
+
     def __init__(self):
         """
         Creates a basic object
@@ -79,20 +83,19 @@ class Example:
         # Defines two models running on the server
         models = {
             "lamner": Model(
-                "LAMNER", 
+                "LAMNER",
                 """
                 LAMNER is a deep learning model based on the transformers architecture developped at UBC.
                 It takes in a function, parses the text, and produces a description of the code segment.
                 It is intended to be used for full functions.
-                """, 
-                lamner_1.translate
+                """,
+                lamner_1.translate,
             ),
-
             "lamner_2": Model(
-                "LAMNER_2", 
-                "This is the second version of lamner that is currently running.", 
-                lamner_2.translate
-            )
+                "LAMNER_2",
+                "This is the second version of lamner that is currently running.",
+                lamner_2.translate,
+            ),
         }
-        
+
         self.rest_server = REST(models)
