@@ -3,12 +3,13 @@ from pathlib import Path
 from zipfile import ZipFile
 from io import BytesIO
 import os
+import codesummary
 
-current_path = os.path.dirname(os.path.realpath(__file__))
+current_path = os.path.dirname(os.path.realpath(CodeSummary.__file__))
 
 models = {
     "LAMNER": {
-        "server_location": "",
+        "server_location": "http://52.24.120.181/lamner.zip",
         "local_location": "lamner",
         "root_folder_names": [
             "custom_embeddings",

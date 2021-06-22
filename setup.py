@@ -13,7 +13,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="CodeSummary",
+    name="codesummary",
     version="1.0.0",
     description="A deployable REST API for NLP Code Summarization.",
     url="https://github.com/Nathan-Nesbitt/CodeSummary",

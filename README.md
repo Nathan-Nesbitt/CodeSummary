@@ -6,7 +6,7 @@ The easiest way to install the `CodeSummary` library, install it via PIP for
 Python 3.7:
 
 ```shell
-pip install CodeSummary
+pip install git+https://github.com/Nathan-Nesbitt/CodeSummary
 ```
 
 If you want to do your own development you can follow these steps:
