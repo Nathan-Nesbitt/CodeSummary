@@ -15,7 +15,8 @@ do the following:
 
 1. Clone the repository on your own machine.
 2. Create a virtual environment in the root directory `python -m venv venv`
-3. Install CodeSummary `pip install .`
+3. Activate virtual environment `. venv\bin\activate`
+4. Install CodeSummary `pip install .`
 
 ## Running Basic Example
 
