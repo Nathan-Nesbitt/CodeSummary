@@ -87,7 +87,7 @@ input: "String that is passed into the model"
 
 It then returns a raw return, which contains the string response from the model.
 
-```
+```JSON
 {
     "error": <true/false>,
     "response": <response from model>
