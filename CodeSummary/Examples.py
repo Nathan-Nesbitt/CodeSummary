@@ -47,7 +47,13 @@ class LamnerExample:
         
         models = {
             "lamner": Model(
-                "LAMNER", "LAMNER - Code Summarization", lamner.translate
+                "LAMNER", 
+                """
+                LAMNER is a deep learning model based on the transformers architecture developped at UBC.
+                It takes in a function, parses the text, and produces a description of the code segment.
+                It is intended to be used for full functions.
+                """,  
+                lamner.translate
             )
         }
         
@@ -73,11 +79,19 @@ class Example:
         # Defines two models running on the server
         models = {
             "lamner": Model(
-                "LAMNER", "LAMNER - Code Summarization", lamner_1.translate
+                "LAMNER", 
+                """
+                LAMNER is a deep learning model based on the transformers architecture developped at UBC.
+                It takes in a function, parses the text, and produces a description of the code segment.
+                It is intended to be used for full functions.
+                """, 
+                lamner_1.translate
             ),
 
             "lamner_2": Model(
-                "LAMNER_2", "LAMNER - Code Summarization", lamner_2.translate
+                "LAMNER_2", 
+                "This is the second version of lamner that is currently running.", 
+                lamner_2.translate
             )
         }
         

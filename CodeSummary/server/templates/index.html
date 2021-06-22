@@ -38,6 +38,15 @@
             text-align: center;
         }
 
+        .description {
+            display: flex;
+            justify-content: center;
+        }
+
+        #description {
+            width: 50vw;
+        }
+
         .main {
             margin-top: 20px;
             display: flex;
@@ -106,6 +115,11 @@
             .main>div {
                 margin-top: 20px;
             }
+
+            #description {
+                width: 100%;
+            }
+
         }
 
         @media (min-width: 601px) {
@@ -124,6 +138,11 @@
             .submit {
                 order: 2;
             }
+        
+            #description {
+                width: 50vw;
+            }
+
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
@@ -144,7 +163,9 @@
     <aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust">
         <div class="mdc-drawer__header">
             <h3 class="mdc-drawer__title">Models</h3>
-            <h6 class="mdc-drawer__subtitle">Select a model to submit to</h6>
+            <h6 class="mdc-drawer__subtitle">
+                The following are the models currently running that you can submit to.
+            </h6>
           </div>
         <div class="mdc-drawer__content">
         </div>
@@ -154,7 +175,9 @@
             <div class="container">
                 <div class="title">
                     <h1 id="title"></h1>
-                    <p id="description"></p>
+                    <div class="description">
+                        <p id="description"></p>
+                    </div>
                 </div>
                 <div class="main">
                     <div id="input_area">
