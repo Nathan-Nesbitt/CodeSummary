@@ -31,6 +31,13 @@ from pathlib import Path
 
 from .lamnerCodePreProcess import tokenize_code
 
+"""
+    A little explanation: This is where all of the models are stored on the
+    system, this is done because we cannot store 100+mb files on GitHub.  
+"""
+import os
+models_path = os.path.expanduser("~\\Documents\\.models\\lamner")
+
 
 class Encoder(nn.Module):
     def __init__(self, input_dim, emb_dim, enc_hid_dim, dec_hid_dim, dropout):
@@ -638,7 +645,7 @@ class Lamner:
 
         """ This creates a dataset pipline from a table (CSV in our case) """
         self.train_data, self.valid_data, self.test_data = data.TabularDataset.splits(
-            path= Path(__file__).parent / Path("data_seq2seq/"),
+            path= Path(__file__).parent / Path(models_path, "data_seq2seq/"),
             train="train_seq.csv",
             skip_header=True,
             validation="valid_seq.csv",
@@ -650,20 +657,20 @@ class Lamner:
         # This loads the custom embeddings from pre-training
         """This gets the embeddings for the encoder and decoder"""
         self.custom_embeddings_semantic_encoder = vocab.Vectors(
-            name=Path(__file__).parent / Path("custom_embeddings/semantic_embeds.txt"),
-            cache=Path(__file__).parent / Path("custom_embeddings_semantic_encoder"),
+            name=Path(__file__).parent / Path(models_path, "custom_embeddings/semantic_embeds.txt"),
+            cache=Path(__file__).parent / Path(models_path, "custom_embeddings_semantic_encoder"),
             unk_init=torch.Tensor.normal_,
         )
 
         self.custom_embeddings_syntax_encoder = vocab.Vectors(
-            name=Path(__file__).parent / Path("custom_embeddings/syntax_embeds.txt"),
-            cache=Path(__file__).parent / Path("custom_embeddings_syntax_encoder"),
+            name=Path(__file__).parent / Path(models_path, "custom_embeddings/syntax_embeds.txt"),
+            cache=Path(__file__).parent / Path(models_path, "custom_embeddings_syntax_encoder"),
             unk_init=torch.Tensor.normal_,
         )
 
         self.custom_embeddings_decoder = vocab.Vectors(
-            name=Path(__file__).parent / Path("custom_embeddings/decoder_embeddings.txt"),
-            cache=Path(__file__).parent / Path("custom_embeddings_decoder"),
+            name=Path(__file__).parent / Path(models_path, "custom_embeddings/decoder_embeddings.txt"),
+            cache=Path(__file__).parent / Path(models_path, "custom_embeddings_decoder"),
             unk_init=torch.Tensor.normal_,
         )
 
@@ -746,7 +753,7 @@ class Lamner:
 
         self.criterion = nn.CrossEntropyLoss(ignore_index=self.TRG_PAD_IDX)
 
-        self.model.load_state_dict(torch.load(Path(__file__).parent / Path("best-seq2seq.pt"), map_location="cpu"))
+        self.model.load_state_dict(torch.load(Path(__file__).parent / Path(models_path, "best-seq2seq.pt"), map_location="cpu"))
 
     def translate(self, value):
         """

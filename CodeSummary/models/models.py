@@ -5,7 +5,7 @@ from io import BytesIO
 import os
 import CodeSummary
 
-current_path = os.path.dirname(os.path.realpath(CodeSummary.__file__))
+current_path = os.path.expanduser("~\\Documents\\.models")
 
 models = {
     "LAMNER": {
