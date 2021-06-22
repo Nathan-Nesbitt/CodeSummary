@@ -9,7 +9,9 @@ Python 3.7:
 pip install git+https://github.com/Nathan-Nesbitt/CodeSummary
 ```
 
-If you want to do your own development you can follow these steps:
+This installs the library without the `main.py` script, if you want to run the
+server as a web server or if you want to do your own development you can instead
+do the following:
 
 1. Clone the repository on your own machine.
 2. Create a virtual environment in the root directory `python -m venv venv`
