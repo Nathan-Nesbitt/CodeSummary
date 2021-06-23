@@ -15,7 +15,7 @@ do the following:
 
 1. Clone the repository on your own machine.
 2. Create a virtual environment in the root directory `python -m venv venv`
-3. Activate virtual environment `. venv\bin\activate`
+3. Activate virtual environment `. venv\bin\activate` or `.\venv\Scripts\activate` on Windows
 4. Install CodeSummary `pip install .`
 
 ## Running Basic Example
@@ -28,12 +28,16 @@ visiting `localhost:3000`
 ### Development
 
 If you want to run the local server that is included in the git repository,
-you can simply run `export FLASK_APP=main:server` `flask run --port 3000`. 
+you can simply run `export FLASK_APP=main:server` on linux to set the environment
+variables, or `$env:FLASK_APP = "main:server"` on Windows. 
+
+You can then start the server by running `flask run --port 3000`. 
 
 ### Production
 
 If you want to run this in production you should instead use gunicorn, which
-can be done by running `sh gunicorn.sh`.
+can be done by running `sh gunicorn.sh` on Linux. You will need to install 
+gunicorn first which can be done by running `pip install gunicorn`.
 
 ## Using the API
 
