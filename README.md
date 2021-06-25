@@ -2,21 +2,19 @@
 Deploy models as a local REST API with ease.
 
 ## Installation
-The easiest way to install the `CodeSummary` library, install it via PIP for 
-Python 3.7:
-
-```shell
-pip install git+https://github.com/Nathan-Nesbitt/CodeSummary
-```
-
-This installs the library without the `main.py` script, if you want to run the
-server as a web server or if you want to do your own development you can instead
-do the following:
+If you want to run the server as a web server run the following:
 
 1. Clone the repository on your own machine.
 2. Create a virtual environment in the root directory `python -m venv venv`
 3. Activate virtual environment `. venv/bin/activate` or `.\venv\Scripts\activate` on Windows
 4. Install CodeSummary `pip install .`
+
+If you want to install the `CodeSummary` library alone, install it via PIP
+for Python 3.7:
+
+```shell
+pip install git+https://github.com/Nathan-Nesbitt/CodeSummary
+```
 
 ## Running Basic Example
 
