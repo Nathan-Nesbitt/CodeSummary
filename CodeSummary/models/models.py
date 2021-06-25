@@ -5,6 +5,8 @@ from io import BytesIO
 import os
 import CodeSummary
 from pathlib import Path
+from tqdm import tqdm
+
 
 current_path = Path(os.path.expanduser("~"), "Documents", ".models")
 
@@ -52,16 +54,26 @@ def get_models(download_models=None):
         down_models = models
 
     for model_name, model_info in down_models.items():
-        print("Downloading {} model...".format(model_name))
         # Only download if the file doesn't already exist
         exists = False
         if model_info["root_folder_names"]:
             for folder in model_info["root_folder_names"]:
-                print(Path(current_path, model_info["local_location"], folder))
                 if Path(current_path, model_info["local_location"], folder).exists():
                     exists = True
                     break
         if not exists:
+            print(f"Downloading {model_name} model...")
             with request.urlopen(model_info["server_location"]) as url:
-                with ZipFile(BytesIO(url.read())) as zipped:
+                length = int(url.headers.get("content-length"))
+                stream = BytesIO()
+                block_size = max(4096, length // 20)
+                with tqdm(total=length, position=0) as tq:
+                    while True:
+                        data = url.read(block_size)
+                        if not data:
+                            break
+                        stream.write(data)
+                        tq.update(block_size)
+                print(f"Extracting {model_name} model...")
+                with ZipFile(stream) as zipped:
                     zipped.extractall(Path(current_path, model_info["local_location"]))

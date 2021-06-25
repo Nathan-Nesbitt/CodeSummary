@@ -29,6 +29,7 @@ setup(
         "matplotlib",
         "nltk",
         "javalang",
+        "tqdm",
         "spiral @ git+https://github.com/casics/spiral.git"
     ],
     zip_safe=False,
