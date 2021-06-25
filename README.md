@@ -28,7 +28,7 @@ visiting `localhost:3000`
 ### Development
 
 If you want to run the local server that is included in the git repository,
-you can simply run `export FLASK_APP=main:server` on linux to set the environment
+you can simply run `export FLASK_APP=main:server` on Linux to set the environment
 variables, or `$env:FLASK_APP = "main:server"` on Windows. 
 
 You can then start the server by running `flask run --port 3000`. 
