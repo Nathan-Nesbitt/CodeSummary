@@ -53,7 +53,7 @@ class LamnerExample:
                 """
                 LAMNER is a deep learning model based on the transformers architecture developped at UBC.
                 It takes in a function, parses the text, and produces a description of the code segment.
-                It is intended to be used for full functions.
+                It is intended to be used for full Java functions.
                 """,
                 lamner.translate,
             )
@@ -87,7 +87,7 @@ class Example:
                 """
                 LAMNER is a deep learning model based on the transformers architecture developped at UBC.
                 It takes in a function, parses the text, and produces a description of the code segment.
-                It is intended to be used for full functions.
+                It is intended to be used for full Java functions.
                 """,
                 lamner_1.translate,
             ),
